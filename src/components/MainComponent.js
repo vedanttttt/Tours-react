@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
-import {Navbar,NavbarBrand} from 'reactstrap';
 import Pamplet from './MenuComponent';
 import TourDetail from './TourdetailComponent';
+import Header from './HeaderComponent';
+import Footer from './FooterComponent';
 import {TOURS} from '../shared/tours';
 
 class Main extends Component {
@@ -24,14 +25,11 @@ class Main extends Component {
  render(){ 
   return (
     <div>
-      <Navbar dark color="primary">
-        <div className="container">
-           <NavbarBrand href="/">Tour-e-ConFusion</NavbarBrand>
-        </div>
-      </Navbar>
+      <Header />
       <Pamplet tours={this.state.tours} 
         onClick={(tourId)=> this.onTourSelect(tourId)} />
       <TourDetail tour={this.state.tours.filter((tour)=> tour.id === this.state.selectedTour)[0]} />
+      <Footer />
     </div>
   );
  }
