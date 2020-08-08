@@ -1,9 +1,11 @@
 import React,{Component} from 'react';
 import Pamplet from './MenuComponent';
+import Home from './HomeComponent';
 import TourDetail from './TourdetailComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import {TOURS} from '../shared/tours';
+import {Switch,Route,Redirect} from 'react-router-dom';
 
 class Main extends Component {
 
@@ -11,24 +13,27 @@ class Main extends Component {
   super(props);
 
   this.state={
-    tours: TOURS,
-    selectedTour:null
-  }
+    tours: TOURS
+  };
  }
 
-  onTourSelect(tourId){
-	this.setState({
-		selectedTour:tourId
-	});
-}
 
  render(){ 
+
+  const HomePage = ()=>{
+  	return(
+     	<Home />
+  		);
+  }
+  
   return (
     <div>
       <Header />
-      <Pamplet tours={this.state.tours} 
-        onClick={(tourId)=> this.onTourSelect(tourId)} />
-      <TourDetail tour={this.state.tours.filter((tour)=> tour.id === this.state.selectedTour)[0]} />
+      <Switch>
+      	<Route path="/home" component={HomePage} />
+      	<Route exact path="/pamplet" component={()=> <Pamplet tours={this.state.tours} /> } />
+      	<Redirect to="/home" />
+      </Switch>
       <Footer />
     </div>
   );

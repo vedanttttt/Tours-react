@@ -15,7 +15,7 @@ import {Card,CardImg,CardImgOverlay,CardTitle} from 'reactstrap';
   const Menu = (props)=>{
       const pamplet = props.tours.map((tour)=>{
       return (
-            <div key={tour.id} className="col-12 col-md-5 m-1">
+            <div key={tour.id} className="col-12 col-md-5 mt-4 m-1">
                <RenderMenuItem tour={tour} onClick={props.onClick} />
             </div>
         );
