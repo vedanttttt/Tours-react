@@ -1,8 +1,8 @@
 import React from 'react';
-import {Card,CardImg,CardBody,CardTitle,CardText} from 'reactstrap';
+import {Card,CardImg,CardBody,CardTitle,CardText,Breadcrumb,BreadcrumbItem} from 'reactstrap';
+import {Link} from 'react-router-dom';
 
 	function RenderTour({tour}){
-		if(tour!=null){
            return(
            	 <div className="col-12 col-md-5 m-1">
               <Card>
@@ -14,12 +14,6 @@ import {Card,CardImg,CardBody,CardTitle,CardText} from 'reactstrap';
               </Card>
              </div>
            	);
-		}
-		else{
-			return(
-                <div></div>
-				);
-		}
 	}
 
 	function RenderComments({comments}){
@@ -59,8 +53,18 @@ import {Card,CardImg,CardBody,CardTitle,CardText} from 'reactstrap';
  	return(
     <div className="container">
       <div className="row">
+            <Breadcrumb>
+              <BreadcrumbItem><Link to="/pamplet">Pamplet</Link></BreadcrumbItem>
+              <BreadcrumbItem active>{props.tour.name}</BreadcrumbItem>
+            </Breadcrumb>
+            <div className="col-12">
+              <h3>{props.tour.name}</h3>
+              <hr />
+            </div>  
+         </div>
+      <div className="row">
        <RenderTour tour={props.tour} />
-       <RenderComments comments={props.tour.comments} />
+       <RenderComments comments={props.comments} />
       </div> 
     </div>  
  	);
