@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import { Navbar, NavbarBrand,Nav,NavbarToggler,Collapse,NavItem,Jumbotron,
-  Button,Modal,ModalBody,ModalHeader } from 'reactstrap';
+  Button,Modal,ModalBody,ModalHeader,
+  Form,FormGroup,Label,Col,Input } from 'reactstrap';
 import {NavLink} from 'react-router-dom';
 
 class Header extends Component{
@@ -14,6 +15,7 @@ class Header extends Component{
     };
     this.toggleNav=this.toggleNav.bind(this);
     this.toggleModal=this.toggleModal.bind(this);
+    this.handleLogin=this.handleLogin.bind(this);
   }
 
   toggleNav(){
@@ -26,6 +28,12 @@ class Header extends Component{
       this.setState({
         isModalOpen: !this.state.isModalOpen
       })
+  }
+
+  handleLogin(event){
+    this.toggleModal();
+    alert("Username: " + this.username.value + " Password: " + this.password.value + " Remember: " + this.remember.checked);
+    event.preventDefault();
   }
 
 render(){
@@ -75,7 +83,27 @@ render(){
         <ModalBody>
           <Form onSubmit={this.handleLogin}>
             <FormGroup>
-            </For
+              <Label htmlFor="username" md={2}>Username</Label>
+              <Col md={{size:8,offset:2}}>
+                <Input type="text" name="username" id="username" placeholder="Username"
+                  innerRef={(input)=> this.username=input} />
+              </Col>
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="password" md={2}>Password</Label>
+              <Col md={{size:8,offset:2}}>
+                <Input type="password" name="password" id="password" placeholder="Password"
+                  innerRef={(input)=>this.password=input} />
+              </Col>
+            </FormGroup>
+            <FormGroup check>
+              <Label check>
+                <Input type="checkbox" name="remember"
+                  innerRef={(input)=>this.remember = input} />
+                  Remember Me
+              </Label>
+            </FormGroup>
+            <Button type="submit" className="bg-primary">Login</Button>
           </Form>
         </ModalBody>
       </Modal>
