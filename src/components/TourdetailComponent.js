@@ -17,7 +17,7 @@ import {LocalForm,Control,Errors} from 'react-redux-form';
            	);
 	}
 
-	function RenderComments({comments}){
+	function RenderComments({comments,addComment,tourId}){
 		if(comments==null){
 			return(<div></div>);
 		}
@@ -43,7 +43,8 @@ import {LocalForm,Control,Errors} from 'react-redux-form';
         <ul className="list-unstyled">
          {cmnts}
         </ul>
-        <CommentForm />
+        <CommentForm 
+        tourId={tourId} addComment={addComment} />
       </div>   
 	);
 }
@@ -73,8 +74,8 @@ class CommentForm extends Component{
   }
 
   handleSubmit(values){
-    console.log("Current State is: " + JSON.stringify(values));
-    alert("Current state is: " + JSON.stringify(values));
+    this.toggleModal();
+    this.props.addComment(this.props.tourId,values.rating,values.author,values.comment);
   }
 
   render(){
@@ -154,7 +155,9 @@ class CommentForm extends Component{
          </div>
       <div className="row">
        <RenderTour tour={props.tour} />
-       <RenderComments comments={props.comments} />
+       <RenderComments comments={props.comments} 
+        addComment={props.addComment} 
+        tourId={props.tour.id} />
       </div> 
     </div>  
  	);
