@@ -19,7 +19,7 @@ import {baseUrl} from '../shared/baseUrl';
            	);
 	}
 
-	function RenderComments({comments,addComment,tourId}){
+	function RenderComments({comments,postComment,tourId}){
 		if(comments==null){
 			return(<div></div>);
 		}
@@ -46,7 +46,7 @@ import {baseUrl} from '../shared/baseUrl';
          {cmnts}
         </ul>
         <CommentForm 
-        tourId={tourId} addComment={addComment} />
+        tourId={tourId} postComment={postComment} />
       </div>   
 	);
 }
@@ -77,7 +77,7 @@ class CommentForm extends Component{
 
   handleSubmit(values){
     this.toggleModal();
-    this.props.addComment(this.props.tourId,values.rating,values.author,values.comment);
+    this.props.postComment(this.props.tourId,values.rating,values.author,values.comment);
   }
 
   render(){
@@ -176,7 +176,7 @@ class CommentForm extends Component{
       <div className="row">
        <RenderTour tour={props.tour} />
        <RenderComments comments={props.comments} 
-        addComment={props.addComment} 
+        postComment={props.postComment} 
         tourId={props.tour.id} />
       </div> 
     </div>  
