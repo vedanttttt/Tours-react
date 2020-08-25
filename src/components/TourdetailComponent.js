@@ -3,12 +3,13 @@ import {Card,CardImg,CardBody,CardTitle,CardText,Breadcrumb,BreadcrumbItem,Butto
 import {Link} from 'react-router-dom';
 import {LocalForm,Control,Errors} from 'react-redux-form';
 import {Loading} from './LoadingComponent';
+import {baseUrl} from '../shared/baseUrl';
 
 	function RenderTour({tour}){
            return(
            	 <div className="col-12 col-md-5 m-1">
               <Card>
-                 <CardImg width="100%" src={tour.image} alt={tour.name} />
+                 <CardImg width="100%" src={baseUrl + tour.image} alt={tour.name} />
                  <CardBody>
                     <CardTitle>{tour.name}</CardTitle>
                     <CardText>{tour.description}</CardText>

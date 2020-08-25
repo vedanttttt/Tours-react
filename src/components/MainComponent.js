@@ -8,7 +8,7 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import {Switch,Route,Redirect,withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {addComment,fetchTours} from '../redux/ActionCreators';
+import {addComment,fetchTours,fetchComments,fetchPromos} from '../redux/ActionCreators';
 import {actions} from 'react-redux-form';
 
  const mapStateToProps=state =>{
@@ -23,7 +23,9 @@ import {actions} from 'react-redux-form';
  const mapDispatchToProps = (dispatch) => ({
     addComment: (tourId,rating,author,comment) => dispatch(addComment(tourId,rating,author,comment)),
     fetchTours: () => {dispatch(fetchTours())},
-    resetFeedbackForm: () => {dispatch(actions.reset('feedback'))}
+    resetFeedbackForm: () => {dispatch(actions.reset('feedback'))},
+    fetchComments: () => {dispatch(fetchComments())},
+    fetchPromos: () => {dispatch(fetchPromos())}
  });
 
 class Main extends Component {
@@ -35,6 +37,8 @@ class Main extends Component {
 
  componentDidMount() {
   this.props.fetchTours();
+  this.props.fetchComments();
+  this.props.fetchPromos();
  }
 
  render(){ 
@@ -44,7 +48,9 @@ class Main extends Component {
      	<Home tour={this.props.tours.tours.filter((tour)=> tour.featured)[0]}
             toursLoading={this.props.tours.isLoading}
             toursErrMess={this.props.tours.errMess}
-            promotion={this.props.promotions.filter((promotion)=> promotion.featured)[0]}
+            promotion={this.props.promotions.promotions.filter((promotion)=> promotion.featured)[0]}
+            promosLoading={this.props.promotions.isLoading}
+            promosErrMess={this.props.promotions.errMess}
             leader={this.props.leaders.filter((leader)=>leader.featured)[0]} />
   		);
   }
@@ -54,7 +60,8 @@ class Main extends Component {
       <TourDetail tour={this.props.tours.tours.filter((tour)=> tour.id === parseInt(match.params.dishId,10))[0]}
                   isLoading={this.props.tours.isLoading}
                   errMess={this.props.tours.errMess}
-                  comments={this.props.comments.filter((comment)=> comment.dishId === parseInt(match.params.dishId,10))}
+                  comments={this.props.comments.comments.filter((comment)=> comment.dishId === parseInt(match.params.dishId,10))}
+                  commentsErrMess={this.props.comments.errMess}
                   addComment={this.props.addComment} />
       );
   }
